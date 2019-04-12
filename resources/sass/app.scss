@@ -1,14 +1,58 @@
+.users-style {
 
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+  width: 70%;
+  margin: auto;
+  margin-top: 20px;
 
-// Variables
-@import 'variables';
+  .table-style {
+      margin-bottom: 10px;
+      input {
+          width: 175px;
+      }
+      .control {
+          float: right;
+      }
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+  }
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  .table {
+      width: 100%;
+
+      .sorting {
+          background-image: url('/images/sort_both.png');
+          background-repeat: no-repeat;
+          background-position: center right;
+      }
+      .sorting_asc {
+          background-image: url('/images/sort_asc.png');
+          background-repeat: no-repeat;
+          background-position: center right;
+      }
+      .sorting_desc {
+          background-image: url('/images/sort_desc.png');
+          background-repeat: no-repeat;
+          background-position: center right;
+      }
+  }
+
+  nav a {
+    color: white!important;
+    margin-right: 10px;
+  }
+}
+
+h1 {
+  text-align: center;
+  font-size: 30px;
+}
+
+.pagination {
+  justify-content: flex-end !important;
+  .page-stats {
+      align-items: center;
+      margin-right: 5px;
+  }
+  i {
+      color: #3273dc !important;
+  }
 }
