@@ -15,9 +15,9 @@
     <body>
 
         <div id="app">
-            <example-component></example-component>
+            {{-- <example-component></example-component> --}}
+        <all-users></all-users>
         </div>
-        {{-- <h1>this is the app</h1> --}}
 
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
