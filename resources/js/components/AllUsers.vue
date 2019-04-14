@@ -24,7 +24,7 @@
                         style="width: 40%; cursor:pointer;">
                         {{column.label}}
                     </th>
-                    <th>Actions</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,13 +32,7 @@
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.created_at}}</td>
-                    <td>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-center">
-                            <a class="dropdown-item text-primary" href="#" @click="deleteUser(user.id)">Delete User</a>
-                        </div>
-                    </td>
+                    <td><a class="btn btn-danger btn-sm" href="#" @click="deleteUser(user.id)">Remove</a></td>
                 </tr>
             </tbody>
         </table>
@@ -124,17 +118,42 @@ export default {
     },
 
     methods: {
-        deleteUser(id) {
-            axios.delete(`/users/${id}/delete`).then(() => {
-                Fire.$emit('reloadUsers')
-                swal(
-                    'Success!',
-                    'User deleted',
-                    'success'
-                )
-            }).catch(() => {
-                swal('Failed', 'There was something wrong', 'warning');
-            });
+        // deleteUser(id) {
+        //     axios.delete(`/users/${id}/delete`).then(() => {
+        //         Fire.$emit('reloadUsers')
+        //         swal(
+        //             'Success!',
+        //             'User deleted',
+        //             'success'
+        //         )
+        //     }).catch(() => {
+        //         swal('Failed', 'There was something wrong', 'warning');
+        //     });
+        // },
+        deleteUser(id){
+            swal({
+                title: 'Delete this user?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        axios.delete(`/users/${id}/delete`).then(()=>{
+                            Fire.$emit('reloadUsers')
+                                swal(
+                                'Deleted!',
+                                'User Deleted.',
+                                'success'
+                                )
+                            Fire.$emit('AfterCreate');
+                        }).catch(()=> {
+                            swal("Failed!", "There was something wronge.", "warning");
+                        });
+                    }
+                })
         },
         
         getUsers() {

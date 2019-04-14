@@ -38,7 +38,7 @@
   background-position: center right;
 }
 
-.users-style nav a {
+.users-style nav > a {
   color: white !important;
   margin-right: 10px;
 }

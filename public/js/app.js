@@ -1839,12 +1839,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     var _this = this;
@@ -1890,12 +1884,37 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    // deleteUser(id) {
+    //     axios.delete(`/users/${id}/delete`).then(() => {
+    //         Fire.$emit('reloadUsers')
+    //         swal(
+    //             'Success!',
+    //             'User deleted',
+    //             'success'
+    //         )
+    //     }).catch(() => {
+    //         swal('Failed', 'There was something wrong', 'warning');
+    //     });
+    // },
     deleteUser: function deleteUser(id) {
-      axios["delete"]("/users/".concat(id, "/delete")).then(function () {
-        Fire.$emit('reloadUsers');
-        swal('Success!', 'User deleted', 'success');
-      })["catch"](function () {
-        swal('Failed', 'There was something wrong', 'warning');
+      swal({
+        title: 'Delete this user?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"]("/users/".concat(id, "/delete")).then(function () {
+            Fire.$emit('reloadUsers');
+            swal('Deleted!', 'User Deleted.', 'success');
+            Fire.$emit('AfterCreate');
+          })["catch"](function () {
+            swal("Failed!", "There was something wronge.", "warning");
+          });
+        }
       });
     },
     getUsers: function getUsers() {
@@ -40137,7 +40156,7 @@ var render = function() {
               )
             }),
             _vm._v(" "),
-            _c("th", [_vm._v("Actions")])
+            _c("th", [_vm._v("Action")])
           ],
           2
         )
@@ -40154,30 +40173,19 @@ var render = function() {
             _c("td", [_vm._v(_vm._s(user.created_at))]),
             _vm._v(" "),
             _c("td", [
-              _c("a", {
-                staticClass: "dropdown-toggle",
-                attrs: {
-                  href: "#",
-                  "data-toggle": "dropdown",
-                  "aria-expanded": "false"
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "dropdown-menu dropdown-menu-center" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item text-primary",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        return _vm.deleteUser(user.id)
-                      }
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-danger btn-sm",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteUser(user.id)
                     }
-                  },
-                  [_vm._v("Delete User")]
-                )
-              ])
+                  }
+                },
+                [_vm._v("Remove")]
+              )
             ])
           ])
         }),
